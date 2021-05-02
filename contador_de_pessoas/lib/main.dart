@@ -3,36 +3,54 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     title: "Contador de pessoas",
-    home: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    home: Stack(
       children: [
-        Text(
-          "Pessoas: 0",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        Image.asset(
+          "images/restaurant.jpg",
+          fit: BoxFit.cover,
+          height: 1000,
         ),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FlatButton(
-              child: Text(
-                "+1",
-                style: TextStyle(fontSize: 40, color: Colors.white),
-              ),
-              onPressed: () {},
+            Text(
+              "Pessoas: 0",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
-            FlatButton(
-              child: Text(
-                "-1",
-                style: TextStyle(fontSize: 40, color: Colors.white),
-              ),
-              onPressed: () {},
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: FlatButton(
+                    child: Text(
+                      "+1",
+                      style: TextStyle(fontSize: 40, color: Colors.white),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: FlatButton(
+                    child: Text(
+                      "-1",
+                      style: TextStyle(fontSize: 40, color: Colors.white),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              "Pode Entrar!",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 30),
             ),
           ],
-        ),
-        Text(
-          "Pode Entrar!",
-          style: TextStyle(
-              color: Colors.white, fontStyle: FontStyle.italic, fontSize: 30),
         ),
       ],
     ),
