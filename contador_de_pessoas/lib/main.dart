@@ -10,6 +10,25 @@ void main() {
           "Pessoas: 0",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FlatButton(
+              child: Text(
+                "+1",
+                style: TextStyle(fontSize: 40, color: Colors.white),
+              ),
+              onPressed: () {},
+            ),
+            FlatButton(
+              child: Text(
+                "-1",
+                style: TextStyle(fontSize: 40, color: Colors.white),
+              ),
+              onPressed: () {},
+            ),
+          ],
+        ),
         Text(
           "Pode Entrar!",
           style: TextStyle(
