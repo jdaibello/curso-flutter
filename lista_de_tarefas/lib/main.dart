@@ -22,7 +22,37 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Lista de Tarefas"),
+        backgroundColor: Colors.blueAccent,
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(17, 1, 7, 1),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: "Nova Tarefa",
+                      labelStyle: TextStyle(color: Colors.blueAccent),
+                    ),
+                  ),
+                ),
+                RaisedButton(
+                    color: Colors.blueAccent,
+                    child: Text("ADC"),
+                    textColor: Colors.white,
+                    onPressed: () {}),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<File> _getFile() async {
