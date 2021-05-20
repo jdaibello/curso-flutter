@@ -59,8 +59,43 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
           ),
+          Expanded(
+            child: FutureBuilder(
+              future: _getGifs(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                  case ConnectionState.none:
+                    return Container(
+                      width: 200,
+                      height: 200,
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        strokeWidth: 5,
+                      ),
+                    );
+                  default:
+                    if (snapshot.hasError)
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    else
+                      return _createGifTable(context, snapshot);
+                }
+              },
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _createGifTable(BuildContext context, AsyncSnapshot snapshot) {
+    return Container(
+      height: 0,
+      width: 0,
     );
   }
 }
