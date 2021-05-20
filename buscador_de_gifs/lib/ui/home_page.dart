@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
 
     if (_search == null)
       response = await http.get(
-          "https://api.giphy.com/v1/gifs/trending?api_key=umHOn1z6yuIfvQ319eoZ0a1ZlC8hfdR9&limit=20&rating=g");
+          "https://api.giphy.com/v1/gifs/trending?api_key=umHOn1z6yuIfvQ319eoZ0a1ZlC8hfdR9&limit=25&rating=g");
     else
       response = await http.get(
           "https://api.giphy.com/v1/gifs/search?api_key=umHOn1z6yuIfvQ319eoZ0a1ZlC8hfdR9&q=$_search&limit=20&offset=$_offset&rating=g&lang=en");
@@ -93,9 +93,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createGifTable(BuildContext context, AsyncSnapshot snapshot) {
-    return Container(
-      height: 0,
-      width: 0,
+    return GridView.builder(
+      padding: EdgeInsets.all(10),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemCount: snapshot.data["data"].length,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          child: Image.network(
+            snapshot.data["data"][index]["images"]["fixed_height"]["url"],
+            height: 300,
+            fit: BoxFit.cover,
+          ),
+        );
+      },
     );
   }
 }
