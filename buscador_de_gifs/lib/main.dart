@@ -6,7 +6,6 @@ void main() {
     home: HomePage(),
     theme: ThemeData(
         hintColor: Colors.white,
-        primaryColor: Colors.white,
         inputDecorationTheme: InputDecorationTheme(
           enabledBorder:
               OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
