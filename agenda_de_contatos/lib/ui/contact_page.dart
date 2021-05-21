@@ -17,6 +17,8 @@ class _ContactPageState extends State<ContactPage> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
 
+  final _nameFocus = FocusNode();
+
   bool _userEdited = false;
 
   Contact _editedContact;
@@ -45,7 +47,13 @@ class _ContactPageState extends State<ContactPage> {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          if (_editedContact.name != null && _editedContact.name.isNotEmpty) {
+            Navigator.pop(context, _editedContact);
+          } else {
+            FocusScope.of(context).requestFocus(_nameFocus);
+          }
+        },
         child: Icon(Icons.save),
         backgroundColor: Colors.red,
       ),
@@ -69,6 +77,7 @@ class _ContactPageState extends State<ContactPage> {
             ),
             TextField(
               controller: _nameController,
+              focusNode: _nameFocus,
               decoration: InputDecoration(labelText: "Nome"),
               onChanged: (text) {
                 _userEdited = true;
