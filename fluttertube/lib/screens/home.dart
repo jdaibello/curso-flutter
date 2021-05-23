@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertube/delegates/data_search.dart';
 
 class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
@@ -24,7 +25,11 @@ class Home extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () async {
+              String result =
+                  await showSearch(context: context, delegate: DataSearch());
+              print(result);
+            },
           ),
         ],
       ),
