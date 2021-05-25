@@ -25,7 +25,6 @@ class LogoApp extends StatefulWidget {
 class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> animation;
-  Animation<double> animation2;
 
   @override
   void initState() {
@@ -35,17 +34,9 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
       duration: Duration(seconds: 2),
     );
 
-    animation = Tween<double>(begin: 0, end: 300).animate(controller);
+    animation =
+        CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
     animation.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        controller.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        controller.forward();
-      }
-    });
-
-    animation2 = Tween<double>(begin: 0, end: 150).animate(controller);
-    animation2.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         controller.reverse();
       } else if (status == AnimationStatus.dismissed) {
@@ -63,17 +54,11 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GrowTransition(
-          child: LogoWidget(),
-          animation: animation,
-        ),
-        GrowTransition(
-          child: LogoWidget(),
-          animation: animation2,
-        ),
-      ],
+    return Center(
+      child: OpacityNGrowTransition(
+        child: LogoWidget(),
+        animation: animation,
+      ),
     );
   }
 }
@@ -106,11 +91,15 @@ class LogoWidget extends StatelessWidget {
   }
 }
 
-class GrowTransition extends StatelessWidget {
-  GrowTransition({this.child, this.animation, Key key}) : super(key: key);
+class OpacityNGrowTransition extends StatelessWidget {
+  OpacityNGrowTransition({this.child, this.animation, Key key})
+      : super(key: key);
 
   final Widget child;
   final Animation<double> animation;
+
+  final sizeTween = Tween<double>(begin: 0, end: 300);
+  final opacityTween = Tween<double>(begin: 0.1, end: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -118,10 +107,13 @@ class GrowTransition extends StatelessWidget {
       child: AnimatedBuilder(
         animation: animation,
         builder: (context, child) {
-          return Container(
-            height: animation.value,
-            width: 200,
-            child: child,
+          return Opacity(
+            opacity: opacityTween.evaluate(animation).clamp(0, 1.0),
+            child: Container(
+              height: sizeTween.evaluate(animation),
+              width: sizeTween.evaluate(animation),
+              child: child,
+            ),
           );
         },
         child: child,
