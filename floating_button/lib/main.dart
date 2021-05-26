@@ -31,6 +31,19 @@ class _HomeState extends State<Home> {
   int count = 0;
 
   @override
+  void initState() {
+    super.initState();
+
+    platform.setMethodCallHandler((methodCall) {
+      if (methodCall.method == "touch") {
+        setState(() {
+          count += 1;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -63,6 +76,14 @@ class _HomeState extends State<Home> {
               child: Text("Hide"),
               onPressed: () {
                 platform.invokeMethod("hide");
+              },
+            ),
+            RaisedButton(
+              child: Text("Verify"),
+              onPressed: () {
+                platform.invokeMethod("isShowing").then((isShowing) {
+                  print(isShowing);
+                });
               },
             ),
           ],
