@@ -33,7 +33,11 @@ abstract class _LoginStore with Store {
     await Future.delayed(Duration(seconds: 2));
 
     loading = false;
+    loggedIn = true;
   }
+
+  @observable
+  bool loggedIn = false;
 
   @computed
   bool get isEmailValid => RegExp(
