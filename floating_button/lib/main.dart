@@ -28,8 +28,46 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   static const platform = const MethodChannel("floating_button");
 
+  int count = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Floating Button Demo"),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              "$count",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 50),
+            ),
+            RaisedButton(
+              child: Text("Create"),
+              onPressed: () {
+                platform.invokeMethod("create");
+              },
+            ),
+            RaisedButton(
+              child: Text("Show"),
+              onPressed: () {
+                platform.invokeMethod("show");
+              },
+            ),
+            RaisedButton(
+              child: Text("Hide"),
+              onPressed: () {
+                platform.invokeMethod("hide");
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
