@@ -15,13 +15,25 @@ Future<void> main() async {
     debug: true,
   );
 
-  final category = ParseObject('Categories')
-    ..set('Title', 'Camisetas')
-    ..set('Position', 2);
+  /*final category = ParseObject('Categories')
+    ..set<String>('Title', 'Meias')
+    ..set<int>('Position', 1);
 
   final response = await category.save();
 
-  print(response.success);
+  print(response.success);*/
+
+  /*final category = ParseObject('Categories')
+    ..objectId = 'ZW1RJNsqW8'
+    ..set<int>('Position', 3);
+
+  final response = await category.save();
+
+  print(response.success);*/
+
+  final category = ParseObject('Categories')..objectId = 'ZW1RJNsqW8';
+
+  category.delete();
 }
 
 class MyApp extends StatelessWidget {
