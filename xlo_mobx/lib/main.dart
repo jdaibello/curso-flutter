@@ -31,9 +31,32 @@ Future<void> main() async {
 
   print(response.success);*/
 
-  final category = ParseObject('Categories')..objectId = 'ZW1RJNsqW8';
+  /*final category = ParseObject('Categories')..objectId = 'ZW1RJNsqW8';
 
-  category.delete();
+  category.delete();*/
+
+  /*final response = await ParseObject('Categories').getObject('4Mqhr1CPpD');
+  if (response.success) {
+    print(response.result);
+  }*/
+
+  /*final response = await ParseObject('Categories').getAll();
+  if (response.success) {
+    for (final object in response.result) {
+      print(object);
+    }
+  }*/
+
+  /*final query = QueryBuilder(ParseObject('Categories'));
+
+  query.whereContains('Title', 'Blusas');
+  query.whereEqualTo('Position', 2);
+
+  final response = await query.query();
+
+  if (response.success) {
+    print(response.result);
+  }*/
 }
 
 class MyApp extends StatelessWidget {
