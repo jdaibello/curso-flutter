@@ -40,6 +40,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     Observer(builder: (_) {
                       return TextField(
+                        enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Exemplo: João S',
@@ -56,6 +57,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     Observer(builder: (_) {
                       return TextField(
+                        enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Exemplo: joao@gmail.com',
@@ -74,6 +76,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     Observer(builder: (_) {
                       return TextField(
+                        enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: '(99) 99999-9999',
@@ -95,6 +98,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     Observer(builder: (_) {
                       return TextField(
+                        enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           isDense: true,
@@ -111,6 +115,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     Observer(builder: (_) {
                       return TextField(
+                        enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           isDense: true,
@@ -120,20 +125,28 @@ class SignUpScreen extends StatelessWidget {
                         onChanged: signupStore.setPass2,
                       );
                     }),
-                    Container(
-                      height: 40,
-                      margin: const EdgeInsets.only(top: 20, bottom: 12),
-                      child: RaisedButton(
-                        color: Colors.orange,
-                        child: Text('CADASTRAR'),
-                        textColor: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                    Observer(builder: (_) {
+                      return Container(
+                        height: 40,
+                        margin: const EdgeInsets.only(top: 20, bottom: 12),
+                        child: RaisedButton(
+                          color: Colors.orange,
+                          disabledColor: Colors.orange.withAlpha(120),
+                          child: signupStore.loading
+                              ? CircularProgressIndicator(
+                                  valueColor:
+                                      AlwaysStoppedAnimation(Colors.white),
+                                )
+                              : Text('CADASTRAR'),
+                          textColor: Colors.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          onPressed: signupStore.signUpPressed,
                         ),
-                        onPressed: () {},
-                      ),
-                    ),
+                      );
+                    }),
                     Divider(color: Colors.black),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 8),
