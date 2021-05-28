@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:xlo_mobx/screens/base/base_screen.dart';
@@ -8,7 +8,7 @@ import 'package:xlo_mobx/stores/user_manager_store.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DotEnv.load(fileName: ".env");
+  await dotenv.load(fileName: ".env");
   await initializeParse();
   setupLocators();
   runApp(MyApp());
@@ -16,9 +16,9 @@ Future<void> main() async {
 
 Future<void> initializeParse() async {
   await Parse().initialize(
-    DotEnv.env['APP_ID'],
-    DotEnv.env['SERVER_URL'],
-    clientKey: DotEnv.env['CLIENT_KEY'],
+    dotenv.env['APP_ID'],
+    dotenv.env['SERVER_URL'],
+    clientKey: dotenv.env['CLIENT_KEY'],
     autoSendSessionId: true,
     debug: true,
   );
