@@ -15,7 +15,12 @@ Future<void> main() async {
   setupLocators();
   runApp(MyApp());
 
-  IBGERepository().getUFListFromApi().then((value) => print(value));
+  IBGERepository().getUFListFromApi().then((value) {
+    print(value);
+    IBGERepository()
+        .getCityListFromApi(value.first)
+        .then((value) => print(value));
+  });
 }
 
 Future<void> initializeParse() async {
