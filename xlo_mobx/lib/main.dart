@@ -14,8 +14,6 @@ Future<void> main() async {
   await initializeParse();
   setupLocators();
   runApp(MyApp());
-
-  CepRepository().getAddressFromApi('13.087-000').then((value) => print(value));
 }
 
 Future<void> initializeParse() async {
