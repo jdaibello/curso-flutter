@@ -183,6 +183,21 @@ mixin _$CreateStore on _CreateStore, Store {
     });
   }
 
+  final _$savedAdAtom = Atom(name: '_CreateStore.savedAd');
+
+  @override
+  Ad get savedAd {
+    _$savedAdAtom.reportRead();
+    return super.savedAd;
+  }
+
+  @override
+  set savedAd(Ad value) {
+    _$savedAdAtom.reportWrite(value, super.savedAd, () {
+      super.savedAd = value;
+    });
+  }
+
   final _$_sendAsyncAction = AsyncAction('_CreateStore._send');
 
   @override
@@ -259,6 +274,17 @@ mixin _$CreateStore on _CreateStore, Store {
   }
 
   @override
+  void setSavedAd(Ad value) {
+    final _$actionInfo = _$_CreateStoreActionController.startAction(
+        name: '_CreateStore.setSavedAd');
+    try {
+      return super.setSavedAd(value);
+    } finally {
+      _$_CreateStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 title: ${title},
@@ -269,6 +295,7 @@ hidePhone: ${hidePhone},
 showErrors: ${showErrors},
 loading: ${loading},
 error: ${error},
+savedAd: ${savedAd},
 imagesValid: ${imagesValid},
 titleValid: ${titleValid},
 descriptionValid: ${descriptionValid},
