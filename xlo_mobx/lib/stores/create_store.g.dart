@@ -9,53 +9,53 @@ part of 'create_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$CreateStore on _CreateStore, Store {
-  Computed<bool> _$imagesValidComputed;
+  Computed<bool>? _$imagesValidComputed;
 
   @override
   bool get imagesValid =>
       (_$imagesValidComputed ??= Computed<bool>(() => super.imagesValid,
               name: '_CreateStore.imagesValid'))
           .value;
-  Computed<bool> _$titleValidComputed;
+  Computed<bool>? _$titleValidComputed;
 
   @override
   bool get titleValid =>
       (_$titleValidComputed ??= Computed<bool>(() => super.titleValid,
               name: '_CreateStore.titleValid'))
           .value;
-  Computed<bool> _$descriptionValidComputed;
+  Computed<bool>? _$descriptionValidComputed;
 
   @override
   bool get descriptionValid => (_$descriptionValidComputed ??= Computed<bool>(
           () => super.descriptionValid,
           name: '_CreateStore.descriptionValid'))
       .value;
-  Computed<bool> _$categoryValidComputed;
+  Computed<bool>? _$categoryValidComputed;
 
   @override
   bool get categoryValid =>
       (_$categoryValidComputed ??= Computed<bool>(() => super.categoryValid,
               name: '_CreateStore.categoryValid'))
           .value;
-  Computed<Address> _$addressComputed;
+  Computed<Address>? _$addressComputed;
 
   @override
   Address get address => (_$addressComputed ??=
           Computed<Address>(() => super.address, name: '_CreateStore.address'))
       .value;
-  Computed<num> _$priceComputed;
+  Computed<num>? _$priceComputed;
 
   @override
   num get price => (_$priceComputed ??=
           Computed<num>(() => super.price, name: '_CreateStore.price'))
       .value;
-  Computed<bool> _$formValidComputed;
+  Computed<bool>? _$formValidComputed;
 
   @override
   bool get formValid => (_$formValidComputed ??=
           Computed<bool>(() => super.formValid, name: '_CreateStore.formValid'))
       .value;
-  Computed<Function> _$sendPressedComputed;
+  Computed<Function>? _$sendPressedComputed;
 
   @override
   Function get sendPressed =>
