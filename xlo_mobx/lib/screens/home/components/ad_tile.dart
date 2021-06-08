@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:xlo_mobx/helpers/extensions.dart';
 import 'package:xlo_mobx/models/ad.dart';
 
 class AdTile extends StatelessWidget {
@@ -46,14 +47,14 @@ class AdTile extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'R\$ ${ad.price.toStringAsFixed(2)}',
+                      '${ad.price.formattedMoney()}',
                       style: TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     Text(
-                      '${ad.createdAt} - '
+                      '${ad.createdAt.formattedDate()} - '
                       '${ad.address.city.name} - '
                       '${ad.address.uf.initials}',
                       style: TextStyle(
