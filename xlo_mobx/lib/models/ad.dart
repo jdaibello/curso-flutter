@@ -27,14 +27,14 @@ class Ad {
       uf: UF(initials: object.get<String>(keyAdFederativeUnit)),
     );
     views = object.get<int>(keyAdViews, defaultValue: 0);
-    user = UserRepository().mapParseToUser(object.get<ParseUser>(keyAdOwner));
     category = Category.fromParse(object.get<ParseObject>(keyAdCategory));
     status = AdStatus.values[object.get<int>(keyAdStatus)];
+    user = UserRepository().mapParseToUser(object.get<ParseUser>(keyAdOwner));
   }
 
   String id;
 
-  List images;
+  List images = [];
 
   String title;
   String description;
@@ -44,7 +44,7 @@ class Ad {
   Address address;
 
   num price;
-  bool hidePhone;
+  bool hidePhone = false;
 
   AdStatus status = AdStatus.PENDING;
   DateTime createdAt;
