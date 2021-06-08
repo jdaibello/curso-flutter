@@ -46,6 +46,7 @@ class FilterScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
+                      elevation: 0,
                       child: Text(
                         'FILTRAR',
                         style: TextStyle(
