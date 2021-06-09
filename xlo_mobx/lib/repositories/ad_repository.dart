@@ -147,7 +147,7 @@ class AdRepository {
       }
       return parseImages;
     } catch (e) {
-      return Future.error('Falha ao salvar imagens');
+      return Future.error('Falha ao salvar imagens: $e');
     }
   }
 

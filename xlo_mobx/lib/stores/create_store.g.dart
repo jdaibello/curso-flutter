@@ -274,17 +274,6 @@ mixin _$CreateStore on _CreateStore, Store {
   }
 
   @override
-  void setSavedAd(Ad value) {
-    final _$actionInfo = _$_CreateStoreActionController.startAction(
-        name: '_CreateStore.setSavedAd');
-    try {
-      return super.setSavedAd(value);
-    } finally {
-      _$_CreateStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 title: ${title},

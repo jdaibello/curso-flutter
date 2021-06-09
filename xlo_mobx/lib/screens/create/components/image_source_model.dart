@@ -58,16 +58,14 @@ class ImageSourceModel extends StatelessWidget {
   Future<void> getFromCamera() async {
     final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
     if (pickedFile == null) return;
-    final image = File(pickedFile.path);
-    imageSelected(image);
+    imageSelected(File(pickedFile.path));
   }
 
   Future<void> getFromGallery() async {
     final pickedFile =
         await ImagePicker().getImage(source: ImageSource.gallery);
     if (pickedFile == null) return;
-    final image = File(pickedFile.path);
-    imageSelected(image);
+    imageSelected(File(pickedFile.path));
   }
 
   Future<void> imageSelected(File image) async {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:xlo_mobx/helpers/extensions.dart';
 import 'package:xlo_mobx/models/ad.dart';
 import 'package:xlo_mobx/screens/ad/ad_screen.dart';
+import 'package:xlo_mobx/screens/create/create_screen.dart';
 
 class ActiveTile extends StatelessWidget {
   ActiveTile(this.ad, {Key key}) : super(key: key);
@@ -72,6 +73,7 @@ class ActiveTile extends StatelessWidget {
                     onSelected: (choice) {
                       switch (choice.index) {
                         case 0:
+                          editAd(context);
                           break;
                         case 1:
                           break;
@@ -118,6 +120,11 @@ class ActiveTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> editAd(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => CreateScreen(ad: ad)));
   }
 }
 
