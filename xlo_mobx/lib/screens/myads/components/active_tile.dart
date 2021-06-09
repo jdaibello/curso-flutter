@@ -4,9 +4,15 @@ import 'package:xlo_mobx/helpers/extensions.dart';
 import 'package:xlo_mobx/models/ad.dart';
 
 class ActiveTile extends StatelessWidget {
-  const ActiveTile(this.ad, {Key key}) : super(key: key);
+  ActiveTile(this.ad, {Key key}) : super(key: key);
 
   final Ad ad;
+
+  final List<MenuChoice> choices = [
+    MenuChoice(index: 0, title: 'Editar', iconData: Icons.edit),
+    MenuChoice(index: 1, title: 'Já vendi', iconData: Icons.thumb_up),
+    MenuChoice(index: 2, title: 'Excluir', iconData: Icons.delete),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +60,60 @@ class ActiveTile extends StatelessWidget {
                 ),
               ),
             ),
+            Column(
+              children: [
+                PopupMenuButton<MenuChoice>(
+                  onSelected: (choice) {
+                    switch (choice.index) {
+                      case 0:
+                        break;
+                      case 1:
+                        break;
+                      case 2:
+                        break;
+                    }
+                  },
+                  icon: Icon(Icons.more_vert, size: 20),
+                  itemBuilder: (_) {
+                    return choices
+                        .map(
+                          (choice) => PopupMenuItem<MenuChoice>(
+                            value: choice,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  choice.iconData,
+                                  size: 20,
+                                  color: Colors.purple,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  choice.title,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.purple,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList();
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class MenuChoice {
+  MenuChoice({this.index, this.title, this.iconData});
+
+  final int index;
+  final String title;
+  final IconData iconData;
 }
