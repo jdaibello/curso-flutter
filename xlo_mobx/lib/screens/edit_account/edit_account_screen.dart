@@ -1,10 +1,14 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:xlo_mobx/stores/edit_account_store.dart';
 
 class EditAccountScreen extends StatelessWidget {
-  const EditAccountScreen({Key key}) : super(key: key);
+  EditAccountScreen({Key key}) : super(key: key);
+
+  final EditAccountStore store = EditAccountStore();
 
   @override
   Widget build(BuildContext context) {
@@ -39,40 +43,52 @@ class EditAccountScreen extends StatelessWidget {
                         activeFgColor: Colors.white,
                         inactiveFgColor: Colors.white,
                         initialLabelIndex: 1,
-                        onToggle: (i) {},
+                        onToggle: store.setUserType,
                       );
                     },
                   ),
                   const SizedBox(height: 12),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                      labelText: 'Nome*',
-                    ),
-                  ),
+                  Observer(builder: (_) {
+                    return TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        isDense: true,
+                        labelText: 'Nome*',
+                        errorText: store.nameError,
+                      ),
+                      onChanged: store.setName,
+                    );
+                  }),
                   const SizedBox(height: 8),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                      labelText: 'Telefone*',
-                    ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      TelefoneInputFormatter(),
-                    ],
-                  ),
+                  Observer(builder: (_) {
+                    return TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        isDense: true,
+                        labelText: 'Telefone*',
+                        errorText: store.phoneError,
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        TelefoneInputFormatter(),
+                      ],
+                      onChanged: store.setPhone,
+                    );
+                  }),
                   const SizedBox(height: 8),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                      labelText: 'Nova Senha',
-                    ),
-                    obscureText: true,
-                  ),
+                  Observer(builder: (_) {
+                    return TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        isDense: true,
+                        labelText: 'Nova Senha',
+                        errorText: store.passError,
+                      ),
+                      obscureText: true,
+                      onChanged: store.setPass1,
+                    );
+                  }),
                   const SizedBox(height: 8),
                   TextFormField(
                     decoration: InputDecoration(
@@ -81,23 +97,26 @@ class EditAccountScreen extends StatelessWidget {
                       labelText: 'Confirmar Nova Senha',
                     ),
                     obscureText: true,
+                    onChanged: store.setPass2,
                   ),
                   const SizedBox(height: 12),
-                  SizedBox(
-                    height: 40,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                  Observer(builder: (_) {
+                    return SizedBox(
+                      height: 40,
+                      child: RaisedButton(
+                        onPressed: store.isFormValid ? () {} : null,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        color: Colors.orange,
+                        elevation: 0,
+                        textColor: Colors.white,
+                        child: Text(
+                          'Salvar',
+                        ),
                       ),
-                      color: Colors.orange,
-                      elevation: 0,
-                      textColor: Colors.white,
-                      child: Text(
-                        'Salvar',
-                      ),
-                    ),
-                  ),
+                    );
+                  }),
                   const SizedBox(height: 8),
                   SizedBox(
                     height: 40,
