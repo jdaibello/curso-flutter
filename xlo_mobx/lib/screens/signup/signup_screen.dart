@@ -80,7 +80,7 @@ class SignUpScreen extends StatelessWidget {
                     }),
                     const SizedBox(height: 16),
                     FieldTitle(
-                      title: 'Celular',
+                      title: 'Telefone',
                       subtitle: 'Proteja sua conta.',
                     ),
                     Observer(builder: (_) {

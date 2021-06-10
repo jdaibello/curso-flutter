@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:xlo_mobx/components/custom_drawer/custom_drawer.dart';
+import 'package:xlo_mobx/screens/edit_account/edit_account_screen.dart';
 import 'package:xlo_mobx/screens/myads/myads_screen.dart';
 import 'package:xlo_mobx/stores/user_manager_store.dart';
 
@@ -55,10 +56,15 @@ class AccountScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: FlatButton(
-                        child: Text('EDITAR'),
-                        textColor: Colors.purple,
-                        onPressed: () {},
-                      ),
+                          child: Text('EDITAR'),
+                          textColor: Colors.purple,
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => EditAccountScreen(),
+                              ),
+                            );
+                          }),
                     ),
                   ],
                 ),
@@ -74,8 +80,11 @@ class AccountScreen extends StatelessWidget {
                 ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => MyAdsScreen()));
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => MyAdsScreen(),
+                    ),
+                  );
                 },
               ),
               ListTile(
