@@ -4,11 +4,13 @@ import 'package:xlo_mobx/helpers/extensions.dart';
 import 'package:xlo_mobx/models/ad.dart';
 import 'package:xlo_mobx/screens/ad/ad_screen.dart';
 import 'package:xlo_mobx/screens/create/create_screen.dart';
+import 'package:xlo_mobx/stores/myads_store.dart';
 
 class ActiveTile extends StatelessWidget {
-  ActiveTile(this.ad, {Key key}) : super(key: key);
+  ActiveTile(this.ad, this.store, {Key key}) : super(key: key);
 
   final Ad ad;
+  final MyAdsStore store;
 
   final List<MenuChoice> choices = [
     MenuChoice(index: 0, title: 'Editar', iconData: Icons.edit),
@@ -122,9 +124,13 @@ class ActiveTile extends StatelessWidget {
     );
   }
 
-  Future<void> editAd(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (_) => CreateScreen(ad: ad)));
+  Future<void> editAd(BuildContext context) async {
+    final success = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => CreateScreen(ad: ad),
+      ),
+    );
+    if (success != null && success) store.refresh();
   }
 }
 
