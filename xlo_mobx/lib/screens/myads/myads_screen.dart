@@ -82,7 +82,7 @@ class _MyAdsScreenState extends State<MyAdsScreen>
                 return ListView.builder(
                     itemCount: store.soldAds.length,
                     itemBuilder: (_, index) {
-                      return SoldTile(store.soldAds[index]);
+                      return SoldTile(store.soldAds[index], store);
                     });
               }),
             ],
