@@ -2,8 +2,11 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:xlo_mobx/components/error_box.dart';
 import 'package:xlo_mobx/stores/edit_account_store.dart';
+import 'package:xlo_mobx/stores/page_store.dart';
 
 class EditAccountScreen extends StatelessWidget {
   EditAccountScreen({Key key}) : super(key: key);
@@ -31,6 +34,14 @@ class EditAccountScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Observer(builder: (_) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ErrorBox(
+                        message: store.error,
+                      ),
+                    );
+                  }),
                   Observer(builder: (_) {
                     return IgnorePointer(
                       ignoring: store.loading,
@@ -93,7 +104,6 @@ class EditAccountScreen extends StatelessWidget {
                         border: OutlineInputBorder(),
                         isDense: true,
                         labelText: 'Nova Senha',
-                        errorText: store.passError,
                       ),
                       obscureText: true,
                       onChanged: store.setPass1,
@@ -107,6 +117,7 @@ class EditAccountScreen extends StatelessWidget {
                         border: OutlineInputBorder(),
                         isDense: true,
                         labelText: 'Confirmar Nova Senha',
+                        errorText: store.passError,
                       ),
                       obscureText: true,
                       onChanged: store.setPass2,
@@ -135,21 +146,27 @@ class EditAccountScreen extends StatelessWidget {
                     );
                   }),
                   const SizedBox(height: 8),
-                  SizedBox(
-                    height: 40,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                  Observer(builder: (_) {
+                    return SizedBox(
+                      height: 40,
+                      child: RaisedButton(
+                        onPressed: () {
+                          store.logout();
+                          GetIt.I<PageStore>().setPage(0);
+                          Navigator.of(context).pop();
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        color: Colors.red,
+                        elevation: 0,
+                        textColor: Colors.white,
+                        child: Text(
+                          'Sair',
+                        ),
                       ),
-                      color: Colors.red,
-                      elevation: 0,
-                      textColor: Colors.white,
-                      child: Text(
-                        'Sair',
-                      ),
-                    ),
-                  ),
+                    );
+                  }),
                 ],
               ),
             ),

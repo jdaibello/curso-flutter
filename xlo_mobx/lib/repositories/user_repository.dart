@@ -78,6 +78,11 @@ class UserRepository {
     }
   }
 
+  Future<void> logout() async {
+    final ParseUser currentUser = await ParseUser.currentUser();
+    await currentUser.logout();
+  }
+
   User mapParseToUser(ParseUser parseUser) {
     return User(
       id: parseUser.objectId,

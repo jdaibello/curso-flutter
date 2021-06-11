@@ -83,9 +83,13 @@ abstract class _EditAccountStore with Store {
   @computed
   VoidCallback get savePressed => (isFormValid && !loading) ? _save : null;
 
+  @observable
+  String error;
+
   @action
   Future<void> _save() async {
     loading = true;
+    error = null;
 
     user.name = name;
     user.phone = phone;
@@ -101,9 +105,11 @@ abstract class _EditAccountStore with Store {
       await UserRepository().save(user);
       userManagerStore.setUser(user);
     } catch (e) {
-      print(e);
+      error = e;
     }
 
     loading = false;
   }
+
+  void logout() => userManagerStore.logout();
 }

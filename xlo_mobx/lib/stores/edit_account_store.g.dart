@@ -135,6 +135,21 @@ mixin _$EditAccountStore on _EditAccountStore, Store {
     });
   }
 
+  final _$errorAtom = Atom(name: '_EditAccountStore.error');
+
+  @override
+  String get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(String value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
   final _$_saveAsyncAction = AsyncAction('_EditAccountStore._save');
 
   @override
@@ -209,6 +224,7 @@ phone: ${phone},
 pass1: ${pass1},
 pass2: ${pass2},
 loading: ${loading},
+error: ${error},
 nameValid: ${nameValid},
 phoneValid: ${phoneValid},
 passValid: ${passValid},
