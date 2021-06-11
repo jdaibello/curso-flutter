@@ -31,25 +31,32 @@ class EditAccountScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  LayoutBuilder(
-                    builder: (_, constraints) {
-                      return ToggleSwitch(
-                        totalSwitches: 2,
-                        minWidth: constraints.biggest.width / 2.01,
-                        labels: ['Particular', 'Profissional'],
-                        cornerRadius: 20,
-                        activeBgColor: [Colors.purple],
-                        inactiveBgColor: Colors.grey,
-                        activeFgColor: Colors.white,
-                        inactiveFgColor: Colors.white,
-                        initialLabelIndex: 1,
-                        onToggle: store.setUserType,
-                      );
-                    },
-                  ),
+                  Observer(builder: (_) {
+                    return IgnorePointer(
+                      ignoring: store.loading,
+                      child: LayoutBuilder(
+                        builder: (_, constraints) {
+                          return ToggleSwitch(
+                            totalSwitches: 2,
+                            minWidth: constraints.biggest.width / 2.01,
+                            labels: ['Particular', 'Profissional'],
+                            cornerRadius: 20,
+                            activeBgColor: [Colors.purple],
+                            inactiveBgColor: Colors.grey,
+                            activeFgColor: Colors.white,
+                            inactiveFgColor: Colors.white,
+                            initialLabelIndex: store.userType.index,
+                            onToggle: store.setUserType,
+                          );
+                        },
+                      ),
+                    );
+                  }),
                   const SizedBox(height: 12),
                   Observer(builder: (_) {
                     return TextFormField(
+                      initialValue: store.name,
+                      enabled: !store.loading,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         isDense: true,
@@ -62,6 +69,8 @@ class EditAccountScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Observer(builder: (_) {
                     return TextFormField(
+                      initialValue: store.phone,
+                      enabled: !store.loading,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         isDense: true,
@@ -79,6 +88,7 @@ class EditAccountScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Observer(builder: (_) {
                     return TextFormField(
+                      enabled: !store.loading,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         isDense: true,
@@ -90,30 +100,37 @@ class EditAccountScreen extends StatelessWidget {
                     );
                   }),
                   const SizedBox(height: 8),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                      labelText: 'Confirmar Nova Senha',
-                    ),
-                    obscureText: true,
-                    onChanged: store.setPass2,
-                  ),
+                  Observer(builder: (_) {
+                    return TextFormField(
+                      enabled: !store.loading,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        isDense: true,
+                        labelText: 'Confirmar Nova Senha',
+                      ),
+                      obscureText: true,
+                      onChanged: store.setPass2,
+                    );
+                  }),
                   const SizedBox(height: 12),
                   Observer(builder: (_) {
                     return SizedBox(
                       height: 40,
                       child: RaisedButton(
-                        onPressed: store.isFormValid ? () {} : null,
+                        onPressed: store.savePressed,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                         color: Colors.orange,
+                        disabledColor: Colors.orange.withAlpha(100),
                         elevation: 0,
                         textColor: Colors.white,
-                        child: Text(
-                          'Salvar',
-                        ),
+                        child: store.loading
+                            ? CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white),
+                              )
+                            : Text('Salvar'),
                       ),
                     );
                   }),
